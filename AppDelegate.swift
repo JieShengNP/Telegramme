@@ -1,0 +1,66 @@
+//
+//  AppDelegate.swift
+//  Telegramme
+//
+//  Created by MAD2 on 11/11/21.
+//
+
+import UIKit
+import CoreData
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    //Core Data Stack
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Telegramme")
+        container.loadPersistentStores(completionHandler: {(storeDescription, error) in
+            if let error = error as NSError?{
+                fatalError("Unresolved Error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    //Core Data Saving support
+    func SaveContext(){
+        let context = persistentContainer.viewContext
+        if context.hasChanges{
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved Error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+    public var selectedRow:Int = 0
+//    var contactList:[Contact] = []
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        
+//        contactList.append(Contact(firstName: "Apple", lastName: "Ang", mobile: "90000001"))
+//        contactList.append(Contact(firstName: "Barry", lastName: "B", mobile: "90000002"))
+//        contactList.append(Contact(firstName: "Charlie", lastName: "C", mobile: "90000003"))
+        return true
+    }
+
+    // MARK: UISceneSession Lifecycle
+
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        // Called when a new scene session is being created.
+        // Use this method to select a configuration to create the new scene with.
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        // Called when the user discards a scene session.
+        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+
+
+}
+
